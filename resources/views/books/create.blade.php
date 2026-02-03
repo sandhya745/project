@@ -58,7 +58,7 @@
 <!-- Genre  -->
 <div class="flex flex-col">
     <label class="block text-gray-700 font-medium my-2">Genre</label>
-    <select name="genre" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+    <select name="genre_id" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
         <option value="">Select Genre</option>
         @foreach($genres as $genre)
             <option value="{{ $genre->id }}" {{ isset($book) && $book->genre_id == $genre->id ? 'selected' : '' }}>
@@ -71,7 +71,7 @@
         <!-- Submit Button -->
         <div class="text-center">
              <button type="submit"
-        class="bg-blue-500 text-white rounded px-4 py-2">
+        class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded shadow">
     Save Book
 </button>
 

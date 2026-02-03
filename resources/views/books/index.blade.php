@@ -13,7 +13,7 @@
     <!-- Add New Book Button at bottom right -->
     <div class="flex justify-end mb-6">
         <a href="{{ route('book.create') }}"
-           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow">
+           class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded shadow">
             + Add New Book
         </a>
     </div>
@@ -28,7 +28,7 @@
                     <p>Author: {{ $book->author_name }}</p>
                     <p>Published: {{ $book->published }}</p>
                     <p>Status: {{ $book->status }}</p>
-                     <p>Genre: {{ $book->genre }}</p>
+                     <p>Genre: {{ $book->genre->name ?? 'Unknown' }}</p>
                 </div>
 
                 <!-- Edit/Delete Buttons -->
