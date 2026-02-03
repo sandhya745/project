@@ -17,7 +17,7 @@
     <div class="flex text-center mb-6">
         <a href="{{ route('book.list') }}"
            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow">
-            All Book
+            All Books
         </a>
     </div>
     <div class="grid grid-cols-2 gap-6">
