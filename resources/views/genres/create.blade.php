@@ -15,6 +15,7 @@
 
     <form action="{{ route('genres.store') }}" method="POST" class="space-y-4">
         @csrf
+        <input type="hidden" name="return_to" value="{{ request('return_to') }}">
         <div class="flex flex-col">
             <label class="block text-gray-700 font-medium mb-2">Genre Name</label>
             <input type="text" name="name"

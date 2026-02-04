@@ -26,15 +26,28 @@
                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                    placeholder="Enter book name" required>
         </div>
-<br>
-        <!-- Author Name -->
-        <div class="flex flex-col">
-            <label class="block text-gray-700 font-medium my-2">Author Name</label>
-            <input type="text" name="author_name"
-                   class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                   placeholder="Enter author name" required>
-        </div>
-<br>
+
+       <!-- Author Select -->
+<div class="flex flex-col mb-4">
+    <label class="block text-gray-700 font-medium mb-2">Author</label>
+
+    <select name="author_id" required
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <option value="">Select Author</option>
+        @foreach($authors as $author)
+            <option value="{{ $author->id }}" {{ old('author_id', $book->author_id ?? '') == $author->id ? 'selected' : '' }}>
+                {{ $author->author_name }}
+            </option>
+        @endforeach
+    </select>
+
+    <a href="{{ route('authors.create', ['return_to' => url()->current()]) }}"
+   class="mt-2 text-sm text-blue-600 hover:underline">
+   + Add Author
+</a>
+
+</div>
+
         <!-- Published Date -->
         <div class="flex flex-col">
             <label class="block text-gray-700 font-medium my-2">Published Date</label>
@@ -42,7 +55,7 @@
                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                    required>
         </div>
-<br>
+
         <!-- Status -->
         <div class="flex flex-col">
             <label class="block text-gray-700 font-medium my-1">Status</label>
@@ -54,19 +67,26 @@
                 <option value="Ongoing">Ongoing</option>
             </select>
         </div>
-<br>
+
 <!-- Genre  -->
-<div class="flex flex-col">
-    <label class="block text-gray-700 font-medium my-2">Genre</label>
-    <select name="genre_id" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-        <option value="">Select Genre</option>
-        @foreach($genres as $genre)
-            <option value="{{ $genre->id }}" {{ isset($book) && $book->genre_id == $genre->id ? 'selected' : '' }}>
-                {{ $genre->name }}
-            </option>
-        @endforeach
-    </select>
-</div>
+       <div class="flex flex-col mb-4">
+            <label class="block text-gray-700 font-medium mb-2">Genre</label>
+            <select name="genre_id" required
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="">Select Genre</option>
+                @foreach($genres as $genre)
+                    <option value="{{ $genre->id }}" {{ old('genre_id') == $genre->id ? 'selected' : '' }}>
+
+                        {{ $genre->name }}
+                    </option>
+                @endforeach
+            </select>
+             <!-- ALWAYS VISIBLE -->
+    <a href="{{ route('genres.create') }}?return_to={{ url()->current() }}"
+       class="mt-2 text-sm text-blue-600 hover:underline">
+       + Change Genre
+    </a>
+        </div>
 
         <!-- Submit Button -->
         <div class="text-center">

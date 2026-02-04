@@ -5,30 +5,38 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Author;
+
+
 
 class BookController extends Controller
 {
     // List books (with optional genre filter)
-    public function index(Request $request)
+  public function index(Request $request)
 {
- $genreId = $request->query('genre');
+    $genreId = $request->query('genre');
 
-    if ($genreId) {
-        $books = Book::where('genre_id', $genreId)->get();
-        $currentGenre = Genre::find($genreId)?->name ?? 'Unknown Genre';
+    $booksQuery = Book::with(['author', 'genre']);
+
+    if ($genreId && Genre::where('id', $genreId)->exists()) {
+        $booksQuery->where('genre_id', $genreId);
+        $currentGenre = Genre::find($genreId)->name;
     } else {
-        $books = Book::all();
         $currentGenre = 'All Books';
     }
 
+    $books = $booksQuery->latest()->get();
+
     return view('books.index', compact('books', 'currentGenre'));
 }
+
 
     // Show form to create a new book
     public function create()
     {
          $genres = Genre::all();
-    return view('books.create', compact('genres'));
+         $authors = Author::all();
+    return view('books.create', compact('genres','authors'));
     }
 
     // Store a new book
@@ -36,7 +44,7 @@ class BookController extends Controller
     {
         $data = $request->validate([
             'book_name'   => 'required|string|max:255',
-            'author_name' => 'required|string|max:255',
+            'author_id' => 'required|exists:authors,id',
             'published'   => 'required|date',
             'status'      => 'nullable|string',
             'genre_id'       => 'required|exists:genres,id',
@@ -48,24 +56,26 @@ class BookController extends Controller
     }
 
     // Show form to edit a book
-    public function edit($id)
+
+    public function edit(Book $book)
     {
-        $book = Book::findOrFail($id);
+
         $genres = Genre::all();
-        return view('books.edit', compact('book','genres'));
+        $authors = Author::all();
+        return view('books.edit', compact('book','genres','authors'));
     }
 
     // Update a book
-    public function update(Request $request, $id)
+    public function update(Request $request, Book $book)
+
     {
-        $book = Book::findOrFail($id);
 
         $data = $request->validate([
             'book_name'   => 'required|string|max:255',
-            'author_name' => 'required|string|max:255',
+            'author_id'   => 'required|exists:authors,id',
             'published'   => 'required|date',
             'status'      => 'nullable|string',
-            'genre_id'       => 'required|exists:genres,id',
+            'genre_id'    => 'required|exists:genres,id',
         ]);
 
         $book->update($data);
@@ -74,9 +84,9 @@ class BookController extends Controller
     }
 
     // Delete a book
-    public function destroy($id)
+
+    public function destroy(Book $book)
     {
-        $book = Book::findOrFail($id);
         $book->delete();
 
         return redirect()->route('book.list')->with('success', 'Book deleted successfully!');
@@ -85,6 +95,7 @@ class BookController extends Controller
     // Show single book
     public function show(Book $book)
     {
+        $book->load('author');
         return view('books.show', compact('book'));
     }
 }

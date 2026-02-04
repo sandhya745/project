@@ -11,12 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create("books",function(Blueprint $table){
+      Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string("book_name");
-            $table->string("author_name");
-            $table->date("published");
-            $table->string("status")->nullable();
+            $table->string('book_name');
+
+            // ✅ Proper relationship
+            $table->foreignId('author_id')
+                  ->constrained()
+                  ->onDelete('cascade');
+
+            $table->date('published');
+            $table->string('status')->nullable();
+
+            // ✅ Genre relationship
+            $table->foreignId('genre_id')
+                  ->constrained()
+                  ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -26,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('books');
     }
 };

@@ -23,8 +23,12 @@ class GenreController extends Controller
         Genre::create([
             'name' => $request->name,
         ]);
+    if ($request->return_to) {
+        return redirect($request->return_to)->with('success', 'Genre added');
+    }
 
-        return redirect()->route('genres.index')->with('success', 'Genre added successfully!');
+    return redirect()->route('genres.index')->with('success', 'Genre added');
+
     }
  // List genres
     public function index()
@@ -55,11 +59,14 @@ class GenreController extends Controller
     }
 
     // Delete
-    public function destroy($id)
-    {
-        Genre::findOrFail($id)->delete();
-
-        return redirect()->route('genres.index')
-            ->with('success', 'Genre deleted successfully');
+    public function destroy(Genre $genre)
+{
+    if ($genre->books()->count() > 0) {
+        return back()->with('error', 'Cannot delete genre. Books still use it.');
     }
+
+    $genre->delete();
+    return back()->with('success', 'Genre deleted!');
+}
+
 }

@@ -25,7 +25,8 @@
                 <!-- Book Info -->
                 <div>
                     <h2 class="text-xl font-semibold">{{ $book->book_name }}</h2>
-                    <p>Author: {{ $book->author_name }}</p>
+                    <p>Author: {{ $book->author->author_name ?? 'Unknown Author' }}</p>
+                    <p>Bio: {{ $book->author->bio ?? 'No bio available' }}</p>
                     <p>Published: {{ $book->published }}</p>
                     <p>Status: {{ $book->status }}</p>
                      <p>Genre: {{ $book->genre->name ?? 'Unknown' }}</p>

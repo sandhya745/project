@@ -6,20 +6,7 @@
 <div class="max-w-4xl mx-auto mt-12">
 
     <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">Book Genres</h1>
-    <!-- Buttons for All Books and Manage Genres -->
-<div class="flex items-center justify-between mb-6">
-      <!-- All Books (muted blue) -->
-    <a href="{{ route('book.list') }}"
-       class="bg-black/80 hover:bg-black text-white text-sm px-4 py-2 rounded-md shadow-sm transition">
-        All Books({{ $totalBooks }})
-    </a>
 
-    <!-- Manage Genres (muted gray) -->
-    <a href="{{ route('genres.index') }}"
-       class="bg-black/80 hover:bg-black text-white text-sm px-4 py-2 rounded-md shadow-sm transition">
-        Manage Genres
-    </a>
-    </div>
 
     <div class="grid grid-cols-2 gap-6">
 @foreach($genres as $genre)
