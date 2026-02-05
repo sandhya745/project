@@ -18,17 +18,31 @@ class AuthorController extends Controller
         return view('authors.create');
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'author_name' => 'required',
-            'bio' => 'nullable',
-        ]);
+   public function store(Request $request)
+{
+    $request->validate([
+        'author_name' => 'required|string|max:255',
+        'bio' => 'nullable|string',
+    ]);
 
-        Author::create($request->only('author_name', 'bio'));
+    $author = Author::create(
+        $request->only('author_name', 'bio')
+    );
 
-        return redirect()->route('book.create')->with('success', 'Author added! Now select it from the dropdown.');
+    // If coming from Book Create
+    if ($request->filled('return_to')) {
+        return redirect($request->return_to)
+            ->with('success', 'Author added! Now select it from the dropdown.')
+            ->with('new_author_id', $author->id)
+            ->withInput();
     }
+
+    // Normal Author creation
+    return redirect()
+        ->route('authors.index')
+        ->with('success', 'Author added successfully.');
+}
+
 
     public function edit(Author $author)
     {
@@ -58,6 +72,13 @@ class AuthorController extends Controller
 
     return redirect()->route('authors.index')
         ->with('success', 'Author deleted.');
+}
+public function show(Author $author)
+{
+    // Load author with their books
+    $author->load('books');
+
+    return view('authors.show', compact('author'));
 }
 
 }

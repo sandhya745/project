@@ -40,4 +40,6 @@ Route::prefix('authors')->group(function () {
     Route::get('/{author}/edit', [AuthorController::class, 'edit'])->name('authors.edit');
     Route::put('/{author}', [AuthorController::class, 'update'])->name('authors.update');
     Route::delete('/{author}', [AuthorController::class, 'destroy'])->name('authors.destroy');
-});
+    Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
+
+    });

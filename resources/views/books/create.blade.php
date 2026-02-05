@@ -35,9 +35,10 @@
             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
         <option value="">Select Author</option>
         @foreach($authors as $author)
-            <option value="{{ $author->id }}" {{ old('author_id', $book->author_id ?? '') == $author->id ? 'selected' : '' }}>
-                {{ $author->author_name }}
-            </option>
+            <option value="{{ $author->id }}"
+    {{ old('author_id', session('new_author_id')) == $author->id ? 'selected' : '' }}>
+    {{ $author->author_name }}
+</option>
         @endforeach
     </select>
 
@@ -84,7 +85,7 @@
              <!-- ALWAYS VISIBLE -->
     <a href="{{ route('genres.create') }}?return_to={{ url()->current() }}"
        class="mt-2 text-sm text-blue-600 hover:underline">
-       + Change Genre
+       + Add Genre
     </a>
         </div>
 

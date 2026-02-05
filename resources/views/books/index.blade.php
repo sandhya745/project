@@ -24,11 +24,37 @@
             <div class="border p-4 rounded shadow-sm hover:shadow-md transition flex justify-between items-start">
                 <!-- Book Info -->
                 <div>
+
                     <h2 class="text-xl font-semibold">{{ $book->book_name }}</h2>
-                    <p>Author: {{ $book->author->author_name ?? 'Unknown Author' }}</p>
-                    <p>Bio: {{ $book->author->bio ?? 'No bio available' }}</p>
+                    <p>
+    Author:
+    @if($book->author)
+
+        <a href="{{ route('authors.show', $book->author) }}"
+           class="text-gray-600 hover:underline font-medium">
+            {{ $book->author->author_name }}
+        </a>
+        <span class="text-sm text-blue-500 ml-1">
+            (<a href="{{ route('authors.show', $book->author) }}"
+                class="hover:underline">see details</a>)
+        </span>
+    @else
+        <span class="text-blue-500">Unknown Author</span>
+    @endif
+</p>
+
                     <p>Published: {{ $book->published }}</p>
-                    <p>Status: {{ $book->status }}</p>
+                    <p class="flex items-center gap-1 text-gray-400">
+    @if($book->status == 'Complete')
+        ✅
+    @elseif($book->status == 'Pending')
+        ⏳
+    @else
+        🔄
+    @endif
+    {{ $book->status }}
+</p>
+
                      <p>Genre: {{ $book->genre->name ?? 'Unknown' }}</p>
                 </div>
 

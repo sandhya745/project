@@ -11,6 +11,7 @@
 
     <form method="POST" action="{{ route('authors.store') }}" class="space-y-5">
         @csrf
+       <input type="hidden" name="return_to" value="{{ request('return_to') }}">
 
         <div>
             <label class="block font-medium text-gray-700 mb-1">Author Name</label>
