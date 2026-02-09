@@ -20,9 +20,9 @@
             <h1 class="text-xl font-bold text-gray-800">📚 Dusk_Translations</h1>
 
             <div class="flex gap-6 text-gray-700 font-medium">
-                <a href="{{ route('book.list') }}" class="hover:text-blue-600 transition">Books</a>
-                <a href="{{ route('genres.index') }}" class="hover:text-blue-600 transition">Genres</a>
-                <a href="{{ route('authors.index') }}" class="hover:text-blue-600 transition">Authors</a>
+                <a href="{{ route('book.list') }}" class="text-purple-400 hover:text-blue-600 transition">Books</a>
+                <a href="{{ route('genres.index') }}" class="text-green-400 hover:text-blue-600 transition">Genres</a>
+                <a href="{{ route('authors.index') }}" class="text-red-400 hover:text-blue-600 transition">Authors</a>
             </div>
 
         </div>
