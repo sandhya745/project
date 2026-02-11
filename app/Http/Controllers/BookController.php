@@ -42,6 +42,7 @@ class BookController extends Controller
     {
         $data = $request->validate([
             'book_name' => 'required|string|max:255',
+            'synopsis' => 'nullable|string',
             'cover_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'author_id' => 'required|exists:authors,id',
             'published' => 'required|date',
@@ -73,6 +74,7 @@ class BookController extends Controller
     {
         $data = $request->validate([
             'book_name' => 'required|string|max:255',
+            'synopsis' => 'nullable|string',
             'cover_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'cover_image_url' => 'nullable|url',
             'author_id' => 'required|exists:authors,id',

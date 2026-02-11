@@ -13,6 +13,8 @@
 </head>
 
 <body class="bg-gray-50 min-h-screen">
+    <script src="//unpkg.com/alpinejs" defer></script>
+
      <!-- 🔹 GLOBAL NAVIGATION -->
     <nav class="bg-white shadow-md mb-6">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">

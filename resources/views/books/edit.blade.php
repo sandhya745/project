@@ -127,7 +127,13 @@
                     placeholder="https://example.com/image.jpg"
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
-
+            <!-- Synopsis -->
+            <div class="flex flex-col mb-4">
+                <label for="synopsis" class="block font-medium text-gray-700 my-2">Synopsis</label>
+                <textarea name="synopsis" id="synopsis" rows="5"
+                    class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    placeholder="Enter book synopsis...">{{ old('synopsis', $book->synopsis ?? '') }}</textarea>
+            </div>
 
             <!-- Submit Button -->
             <div class="text-center">

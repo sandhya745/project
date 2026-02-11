@@ -36,9 +36,14 @@
                                 No Cover
                             </div>
                         @endif
+                        <h2 class="text-xl font-semibold">
+                            {{ $book->book_name }}
+                            <span class="text-sm text-blue-500 ml-2">
+                                (<a href="{{ route('book.detail', $book) }}" class="hover:underline">see details</a>)
+                            </span>
+                        </h2>
 
 
-                        <h2 class="text-xl font-semibold">{{ $book->book_name }}</h2>
                         <p>
                             Author:
                             @if ($book->author)
