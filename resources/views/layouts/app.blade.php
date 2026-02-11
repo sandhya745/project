@@ -5,17 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Books App')</title>
-
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic:wght@200&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Playwrite NZ Basic', sans-serif;
+        }
+    </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-gray-50 min-h-screen">
     <script src="//unpkg.com/alpinejs" defer></script>
 
-     <!-- 🔹 GLOBAL NAVIGATION -->
+    <!-- 🔹 GLOBAL NAVIGATION -->
     <nav class="bg-white shadow-md mb-6">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
 
