@@ -13,6 +13,8 @@ class Book extends Model
     'published',
     'status',
     'genre_id',
+    'cover_image',
+    'cover_image_url',
 ];
 public function author()
     {
