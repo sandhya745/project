@@ -25,6 +25,8 @@ class BookController extends Controller
 
         $books = $booksQuery->latest()->get();
 
+
+
         return view('books.index', compact('books', 'currentGenre'));
     }
 

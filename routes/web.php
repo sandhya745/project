@@ -5,6 +5,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\ReaderController;
 // Welcome page
 //Route::get('/', function () {
    // return view('welcome');
@@ -12,11 +13,10 @@ use App\Http\Controllers\AuthorController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::prefix('books')->group(function () {
+Route::prefix('/admin/books')->group(function () {
     Route::get('/', [BookController::class, 'index'])->name('book.list');
     Route::get('/create', [BookController::class, 'create'])->name('book.create');
     Route::post('/', [BookController::class, 'store'])->name('book.store');
-
     Route::get('/{book}/edit', [BookController::class, 'edit'])->name('book.edit');
     Route::put('/{book}', [BookController::class, 'update'])->name('book.update');
     Route::delete('/{book}', [BookController::class, 'destroy'])->name('book.destroy');
@@ -43,3 +43,12 @@ Route::prefix('authors')->group(function () {
     Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
 
     });
+
+//for readers
+Route::get('/books', [ReaderController::class, 'index'])->name('reader.index');
+Route::get('/books/{book}', [ReaderController::class, 'show'])->name('reader.show');
+Route::get('/books/{book}/chapter/{chapter}', [ReaderController::class, 'read'])->name('reader.read');
+Route::get('/genres', [ReaderController::class, 'genres'])->name('reader.genres');
+Route::get('/genres/{genre}', [ReaderController::class, 'genreBooks'])->name('reader.genre.books');
+
+

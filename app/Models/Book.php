@@ -25,5 +25,10 @@ public function genre()
 {
     return $this->belongsTo(Genre::class);
 }
+public function chapters()
+{
+    return $this->hasMany(Chapter::class)->orderBy('chapter_number');
+}
+
 
 }
