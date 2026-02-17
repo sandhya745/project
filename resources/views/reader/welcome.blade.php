@@ -26,7 +26,7 @@
 
                 {{-- Book Info --}}
                 <h2 class="text-xl font-semibold mb-1">{{ $book->book_name }}</h2>
-                <p class="text-gray-600 mb-2">By {{ $book->author->author_name ?? 'Unknown' }}</p>
+                <p class="text-gray-600 mb-2">By: {{ $book->author->author_name ?? 'Unknown' }}</p>
 
                 {{-- View Chapters --}}
                 <a href="{{ route('reader.show', $book) }}"

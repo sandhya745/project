@@ -24,8 +24,8 @@ Route::prefix('/admin/books')->group(function () {
     Route::get('/{book}', [BookController::class, 'show'])->name('book.detail');
 });
 
-Route::prefix('genres')->group(function () {
-    Route::get('/', [GenreController::class, 'index'])->name('genres.index');
+Route::prefix('/genres')->group(function () {
+    Route::get('/all', [GenreController::class, 'index'])->name('genres.index');
     Route::get('/create', [GenreController::class, 'create'])->name('genres.create');
     Route::post('/', [GenreController::class, 'store'])->name('genres.store');
     Route::get('/{genre}/edit', [GenreController::class, 'edit'])->name('genres.edit');

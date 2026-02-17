@@ -24,27 +24,51 @@
 <script src="//unpkg.com/alpinejs" defer></script>
 
 <!-- 🔹 GLOBAL NAVIGATION -->
-<nav class="bg-white shadow-md mb-6">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+<nav class="bg-white shadow-md mb-6 px-6 py-4" x-data="{ open: false }">
+    <div class="container mx-auto flex justify-between items-center">
 
-        <h1 class="text-xl font-bold text-gray-800">📚 Dusk_Translations</h1>
+        <!-- Logo -->
+        <a href="{{ route('reader.index') }}" class="text-xl font-bold text-gray-800">
+            📚 Dusk_Translations
+        </a>
 
-        <div class="flex gap-6 text-gray-700 font-medium">
-            <a href="{{ route('reader.index') }}"
-               class="text-purple-400 hover:text-blue-600 transition">
-               Books
-            </a>
-
-            <a href="{{ route('reader.genres') }}"
-               class="text-green-400 hover:text-blue-600 transition">
-               Genres
-            </a>
-
+        <!-- Desktop Menu (visible on md+ screens) -->
+        <div class="hidden md:flex space-x-6 items-center">
+            <a href="{{ route('reader.index') }}" class="hover:text-purple-600">🏠 Home</a>
+            <a href="{{ route('reader.index') }}" class="hover:text-purple-600">📖 Novels</a>
+            <a href="{{ route('reader.genres') }}" class="hover:text-purple-600">📂 Genres</a>
+            <a href="#" class="hover:text-purple-600">⚙ Settings</a>
 
         </div>
 
+        <!-- Mobile Hamburger Button (visible on small screens) -->
+        <div class="md:hidden relative">
+            <button @click="open = !open"
+                    class="text-2xl text-gray-700 focus:outline-none">
+                ☰
+            </button>
+
+            <!-- Dropdown Menu for mobile -->
+            <div x-show="open"
+                 x-transition
+                 @click.away="open = false"
+                 class="absolute right-0 mt-2 w-48 bg-gray-50 border shadow-md rounded-md z-50"
+                 style="display: none;">
+
+                <div class="flex flex-col px-4 py-3 space-y-2">
+                    <a href="{{ route('reader.index') }}" class="hover:text-purple-600">🏠 Home</a>
+                    <a href="{{ route('reader.index') }}" class="hover:text-purple-600">📖 Novels</a>
+                    <a href="{{ route('reader.genres') }}" class="hover:text-purple-600">📂 Genres</a>
+                    <a href="#" class="hover:text-purple-600">⚙ Settings</a>
+
+                </div>
+            </div>
+        </div>
     </div>
 </nav>
+
+
+
 <!-- 🔹 END NAVIGATION -->
 
 <div class="container mx-auto px-4 py-6">

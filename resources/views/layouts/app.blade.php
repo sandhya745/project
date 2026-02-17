@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Books App')</title>
+    <title>@yield('title', 'Admin Panel - Dusk_Translations')</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,28 +17,49 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gray-50 min-h-screen" x-data="{ open: false }">
     <script src="//unpkg.com/alpinejs" defer></script>
 
-    <!-- 🔹 GLOBAL NAVIGATION -->
+    <!-- 🔹 ADMIN NAVIGATION -->
     <nav class="bg-white shadow-md mb-6">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
 
-            <h1 class="text-xl font-bold text-gray-800">📚 Dusk_Translations</h1>
+            <!-- Logo / Admin Title -->
+            <h1 class="text-xl font-bold text-gray-800">📚 Dusk_Translations Admin</h1>
 
-            <div class="flex gap-6 text-gray-700 font-medium">
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex gap-6 text-gray-700 font-medium">
                 <a href="{{ route('book.list') }}" class="text-purple-400 hover:text-blue-600 transition">Books</a>
                 <a href="{{ route('genres.index') }}" class="text-green-400 hover:text-blue-600 transition">Genres</a>
                 <a href="{{ route('authors.index') }}" class="text-red-400 hover:text-blue-600 transition">Authors</a>
+                <a href="#" class="text-gray-600 hover:text-blue-600 transition">Settings</a>
+            </div>
+
+            <!-- Mobile Hamburger Menu -->
+            <div class="md:hidden relative">
+                <button @click="open = !open" class="text-2xl text-gray-700 focus:outline-none">☰</button>
+
+                <div x-show="open"
+                     x-transition
+                     @click.away="open = false"
+                     class="absolute right-0 mt-2 w-48 bg-white border shadow-md rounded-md z-50"
+                     style="display: none;">
+                    <div class="flex flex-col px-4 py-3 space-y-2">
+                        <a href="{{ route('book.list') }}" class="hover:text-purple-600">Books</a>
+                        <a href="{{ route('genres.index') }}" class="hover:text-green-600">Genres</a>
+                        <a href="{{ route('authors.index') }}" class="hover:text-red-600">Authors</a>
+                        <a href="#" class="hover:text-gray-600">Settings</a>
+                    </div>
+                </div>
             </div>
 
         </div>
     </nav>
     <!-- 🔹 END NAVIGATION -->
-    <div class="container mx-auto px-4 py-6">
-        @yield('content') <!-- Your page content will appear here -->
-    </div>
 
+    <div class="container mx-auto px-4 py-6">
+        @yield('content') <!-- Your admin page content -->
+    </div>
 </body>
 
 </html>
