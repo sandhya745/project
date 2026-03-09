@@ -32,23 +32,21 @@
                 <a href="{{ route('book.list') }}" class="text-purple-400 hover:text-blue-600 transition">Books</a>
                 <a href="{{ route('genres.index') }}" class="text-green-400 hover:text-blue-600 transition">Genres</a>
                 <a href="{{ route('authors.index') }}" class="text-red-400 hover:text-blue-600 transition">Authors</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600 transition">Settings</a>
+
             </div>
 
             <!-- Mobile Hamburger Menu -->
             <div class="md:hidden relative">
                 <button @click="open = !open" class="text-2xl text-gray-700 focus:outline-none">☰</button>
 
-                <div x-show="open"
-                     x-transition
-                     @click.away="open = false"
-                     class="absolute right-0 mt-2 w-48 bg-white border shadow-md rounded-md z-50"
-                     style="display: none;">
+                <div x-show="open" x-transition @click.away="open = false"
+                    class="absolute right-0 mt-2 w-48 bg-white border shadow-md rounded-md z-50" style="display: none;">
                     <div class="flex flex-col px-4 py-3 space-y-2">
-                        <a href="{{ route('book.list') }}" class="hover:text-purple-600">Books</a>
-                        <a href="{{ route('genres.index') }}" class="hover:text-green-600">Genres</a>
-                        <a href="{{ route('authors.index') }}" class="hover:text-red-600">Authors</a>
-                        <a href="#" class="hover:text-gray-600">Settings</a>
+                        <a href="{{ url('/') }}" class="hover:text-blue-600">🏠 Home</a>
+                        <a href="{{ route('book.list') }}" class="hover:text-purple-600">📖 Books</a>
+                        <a href="{{ route('genres.index') }}" class="hover:text-green-600">🎭 Genres</a>
+                        <a href="{{ route('authors.index') }}" class="hover:text-red-600">🖊️ Authors</a>
+                        <a href="#" class="hover:text-gray-600">⚙️ Settings</a>
                     </div>
                 </div>
             </div>
