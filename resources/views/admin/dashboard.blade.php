@@ -20,13 +20,52 @@
         <div class="flex-1 p-6">
             <!-- Top Bar -->
             <div class="flex justify-between items-center mb-6">
+                <!-- Left: Dashboard Title -->
                 <h1 class="text-2xl font-bold">Dashboard</h1>
-                <div class="flex items-center space-x-4">
-                    <input type="text" placeholder="Search..." class="px-3 py-2 rounded border border-gray-300">
-                    <button class="relative">
-                        🔔
-                        <span class="absolute top-0 right-0 inline-block w-2 h-2 bg-red-500 rounded-full"></span>
-                    </button>
+
+                <!-- Right: Search + Notifications + Profile -->
+                <div class="flex items-center space-x-6">
+                    <!-- Search Form -->
+                    <form action="{{ route('books.index') }}" method="GET" class="flex space-x-2">
+                        <input type="text" name="search" placeholder="Search books..." value="{{ request('search') }}"
+                            class="px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        <button type="submit" class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                            Search
+                        </button>
+                    </form>
+                    <!--Notification-->
+                    <div x-data="{ openNotifications: false, notifications: [
+    { id: 1, message: 'New book added', read: false },
+    { id: 2, message: 'User registered', read: false },
+    { id: 3, message: 'Server backup completed', read: true }
+]}" class="relative">
+
+    <!-- Bell Button -->
+    <button @click="openNotifications = !openNotifications"
+        class="relative text-gray-600 hover:text-gray-800 p-1 rounded-full">
+        🔔
+        <!-- Red dot if any unread notifications -->
+        <span x-show="notifications.some(n => !n.read)"
+              class="absolute top-0 right-0 inline-block w-2 h-2 bg-red-500 rounded-full"></span>
+    </button>
+
+    <!-- Notifications Dropdown -->
+    <div x-show="openNotifications" @click.away="openNotifications = false"
+        class="absolute right-0 mt-2 w-64 bg-white border rounded shadow-lg z-50">
+        <template x-for="n in notifications" :key="n.id">
+            <div :class="{'bg-gray-100': !n.read}" class="px-4 py-2 border-b last:border-b-0">
+                <span x-text="n.message"></span>
+            </div>
+        </template>
+
+        <div class="px-4 py-2 text-center">
+            <button @click="notifications.forEach(n => n.read = true); openNotifications = false"
+                    class="text-sm text-blue-600 hover:underline">
+                Mark all as read
+            </button>
+        </div>
+    </div>
+</div>
                     <img src="https://via.placeholder.com/32" class="rounded-full">
                 </div>
             </div>
@@ -80,42 +119,46 @@
 
 
             <!-- Optional: Chart.js for charts -->
-           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const ctx = document.getElementById('booksChart').getContext('2d');
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const ctx = document.getElementById('booksChart').getContext('2d');
 
-    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
-    gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
+                gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
 
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: {!! json_encode($chartLabels ?? []) !!},
-            datasets: [{
-                label: 'Books Added',
-                data: {!! json_encode($chartData ?? []) !!},
-                borderColor: 'rgba(59, 130, 246, 1)',
-                backgroundColor: gradient,
-                fill: true,
-                tension: 0.4,
-                pointBackgroundColor: 'rgba(59, 130, 246, 1)',
-                pointRadius: 5
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: true },
-                tooltip: { enabled: true }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    precision: 0
-                }
-            }
-        }
-    });
-</script>
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: {!! json_encode($chartLabels ?? []) !!},
+                        datasets: [{
+                            label: 'Books Added',
+                            data: {!! json_encode($chartData ?? []) !!},
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            backgroundColor: gradient,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                            pointRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true
+                            },
+                            tooltip: {
+                                enabled: true
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                precision: 0
+                            }
+                        }
+                    }
+                });
+            </script>
         @endsection

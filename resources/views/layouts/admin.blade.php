@@ -37,8 +37,8 @@
                 <!-- Profile Dropdown -->
                 <div x-data="{ openProfile: false }" class="relative">
                     <button @click="openProfile = !openProfile"
-                        class="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded hover:bg-gray-200 focus:outline-none">
-                        👤 Admin
+                        class="text-purple-600 hover:text-purple-800 flex items-center gap-1">
+                         <img src="https://via.placeholder.com/32" class="rounded-full">
                         <svg class="w-4 h-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 9l-7 7-7-7"/>
@@ -74,8 +74,7 @@
                         <a href="{{ route('books.index') }}" class="hover:text-indigo-600">📖 Books</a>
                         <a href="{{ route('genres.index') }}" class="hover:text-green-600">🎭 Genres</a>
                         <a href="{{ route('authors.index') }}" class="hover:text-red-600">🖊️ Authors</a>
-                        <a href="{{ route('profile.show') }}" class="hover:text-gray-800">👤 View Profile</a>
-                        <a href="{{ route('profile.edit') }}" class="hover:text-gray-800">✏️ Edit Profile</a>
+
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="text-left text-red-500 hover:text-red-700">Logout</button>
