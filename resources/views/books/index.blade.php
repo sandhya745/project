@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Books List')
 
@@ -12,7 +12,7 @@
 
         <!-- Add New Book Button at bottom right -->
         <div class="flex justify-end mb-6">
-            <a href="{{ route('book.create') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded shadow">
+            <a href="{{ route('books.create') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded shadow">
                 + Add New Book
             </a>
         </div>
@@ -39,7 +39,7 @@
                         <h2 class="text-xl font-semibold">
                             {{ $book->book_name }}
                             <span class="text-sm text-blue-500 ml-2">
-                                (<a href="{{ route('book.detail', $book) }}" class="hover:underline">see details</a>)
+                                (<a href="{{ route('books.show', $book) }}" class="hover:underline">see details</a>)
                             </span>
                         </h2>
 
@@ -77,12 +77,12 @@
 
                     <!-- Edit/Delete Buttons -->
                     <div class="flex gap-2">
-                        <a href="{{ route('book.edit', $book->id) }}"
+                        <a href="{{ route('books.edit', $book->id) }}"
                             class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">
                             Edit
                         </a>
 
-                        <form action="{{ route('book.destroy', $book->id) }}" method="POST"
+                        <form action="{{ route('books.destroy', $book->id) }}" method="POST"
                             onsubmit="return confirm('Are you sure you want to delete this book?');">
                             @csrf
                             @method('DELETE')

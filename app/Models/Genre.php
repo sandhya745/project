@@ -9,6 +9,7 @@ class Genre extends Model
 {
 use HasFactory;
 
+    protected $table='genres';
     protected $fillable = ['name'];
 
     // A genre has many books

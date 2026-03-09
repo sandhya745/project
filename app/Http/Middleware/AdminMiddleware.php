@@ -20,7 +20,7 @@ class AdminMiddleware
     }
 
     if (auth()->user()->role !== 'admin') {
-        abort(403, 'Access Denied');
+        abort(403, 'You are not authorized to access admin pages.');
     }
 
     return $next($request);

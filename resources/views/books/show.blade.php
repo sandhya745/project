@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', $book->book_name)
 
@@ -58,7 +58,7 @@
 
 
         <div class="mt-4">
-            <a href="{{ route('book.list') }}" class="text-blue-500 hover:underline">← Back to Books</a>
+            <a href="{{ route('books.index') }}" class="text-blue-500 hover:underline">← Back to Books</a>
         </div>
     </div>
 @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Add Book') <!-- optional: sets the <title> in your layout -->
 
@@ -16,7 +16,7 @@
         @endif
 
         <!-- Form -->
-        <form action="{{ route('book.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+        <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
             @csrf
 
             <!-- Book Name -->

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.reader')
 
 @section('title', 'Edit Author')
 

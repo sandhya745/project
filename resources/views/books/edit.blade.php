@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Edit Book')
 
@@ -16,7 +16,7 @@
         @endif
 
         <!-- Form -->
-        <form action="{{ route('book.update', $book->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('books.update', $book->id) }}" method="POST" enctype="multipart/form-data">
 
             @csrf
             @method('PUT')
