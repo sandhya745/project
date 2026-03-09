@@ -27,8 +27,18 @@ class AdminDashboardController extends Controller
             'Backup database',
             'Send newsletter',
         ];
+        // Prepare data for "Books Added Over Time" chart
+        $booksByDate = Book::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        $chartLabels = $booksByDate->pluck('date'); // X-axis: dates
+        $chartData = $booksByDate->pluck('count');  // Y-axis: number of books
 
         return view('admin.dashboard', compact(
+            'chartLabels',
+            'chartData',
             'totalBooks',
             'totalGenres',
             'totalAuthors',

@@ -31,23 +31,19 @@
                 </div>
             </div>
 
-            <!-- KPI Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                <div class="bg-white p-4 shadow rounded">
-                    <p class="text-sm text-gray-500">Published Books</p>
-                    <p class="text-xl font-bold">{{ $publishedBooks ?? 0 }}</p>
+            <!-- Dashboard Counts -->
+            <div class="grid grid-cols-3 gap-4 mt-4">
+                <div class="bg-white p-4 shadow rounded text-center">
+                    <h3 class="font-bold">Published Books</h3>
+                    <p class="text-2xl">{{ $totalBooks }}</p>
                 </div>
-                <div class="bg-white p-4 shadow rounded">
-                    <p class="text-sm text-gray-500">Authors</p>
-                    <p class="text-xl font-bold">{{ $authorsCount ?? 0 }}</p>
+                <div class="bg-white p-4 shadow rounded text-center">
+                    <h3 class="font-bold">Authors</h3>
+                    <p class="text-2xl">{{ $totalAuthors }}</p>
                 </div>
-                <div class="bg-white p-4 shadow rounded">
-                    <p class="text-sm text-gray-500">Genres</p>
-                    <p class="text-xl font-bold">{{ $genresCount ?? 0 }}</p>
-                </div>
-                <div class="bg-white p-4 shadow rounded">
-                    <p class="text-sm text-gray-500">Ongoing Tasks</p>
-                    <p class="text-xl font-bold">{{ $tasksCount ?? 0 }}</p>
+                <div class="bg-white p-4 shadow rounded text-center">
+                    <h3 class="font-bold">Genres</h3>
+                    <p class="text-2xl">{{ $totalGenres }}</p>
                 </div>
             </div>
 
@@ -57,63 +53,69 @@
                 <canvas id="booksChart" class="w-full h-64"></canvas>
             </div>
 
-          <!-- Latest Activities -->
-<div class="bg-white p-4 shadow rounded">
-    <h2 class="text-lg font-semibold mb-2">Latest Activities</h2>
-    <ul class="text-gray-600 text-sm space-y-2">
-        @forelse($latestActivities as $activity)
-            <li>• {{ $activity->book_name }} ({{ $activity->status }})</li>
-        @empty
-            <li>No recent books found</li>
-        @endforelse
-    </ul>
-</div>
+            <!-- Latest Activities -->
+            <div class="bg-white p-4 shadow rounded">
+                <h2 class="text-lg font-semibold mb-2">Latest Activities</h2>
+                <ul class="text-gray-600 text-sm space-y-2">
+                    @forelse($latestActivities as $activity)
+                        <li>• {{ $activity->book_name }} ({{ $activity->status }})</li>
+                    @empty
+                        <li>No recent books found</li>
+                    @endforelse
+                </ul>
+            </div>
 
-<!-- Recent Tasks -->
-<div class="bg-white p-4 shadow rounded">
-    <h2 class="text-lg font-semibold mb-2">Recent Tasks</h2>
-    <ul class="text-gray-600 text-sm space-y-2">
-        @forelse($recentTasks as $task)
-            <li>• {{ $task }}</li>
-        @empty
-            <li>No tasks found</li>
-        @endforelse
-    </ul>
-</div>
+            <!-- Recent Tasks -->
+            <div class="bg-white p-4 shadow rounded">
+                <h2 class="text-lg font-semibold mb-2">Recent Tasks</h2>
+                <ul class="text-gray-600 text-sm space-y-2">
+                    @forelse($recentTasks as $task)
+                        <li>• {{ $task }}</li>
+                    @empty
+                        <li>No tasks found</li>
+                    @endforelse
+                </ul>
+            </div>
 
-<!-- Dashboard Counts -->
-<div class="grid grid-cols-3 gap-4 mt-4">
-    <div class="bg-white p-4 shadow rounded text-center">
-        <h3 class="font-bold">Published Books</h3>
-        <p class="text-2xl">{{ $totalBooks }}</p>
-    </div>
-    <div class="bg-white p-4 shadow rounded text-center">
-        <h3 class="font-bold">Authors</h3>
-        <p class="text-2xl">{{ $totalAuthors }}</p>
-    </div>
-    <div class="bg-white p-4 shadow rounded text-center">
-        <h3 class="font-bold">Genres</h3>
-        <p class="text-2xl">{{ $totalGenres }}</p>
-    </div>
-</div>
 
-    <!-- Optional: Chart.js for charts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('booksChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: {!! json_encode($chartLabels ?? []) !!},
-                datasets: [{
-                    label: 'Books Added',
-                    data: {!! json_encode($chartData ?? []) !!},
-                    borderColor: 'rgba(59, 130, 246, 1)',
-                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                    fill: true,
-                    tension: 0.4
-                }]
+
+            <!-- Optional: Chart.js for charts -->
+           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('booksChart').getContext('2d');
+
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
+    gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {!! json_encode($chartLabels ?? []) !!},
+            datasets: [{
+                label: 'Books Added',
+                data: {!! json_encode($chartData ?? []) !!},
+                borderColor: 'rgba(59, 130, 246, 1)',
+                backgroundColor: gradient,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                pointRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true },
+                tooltip: { enabled: true }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    precision: 0
+                }
             }
-        });
-    </script>
-@endsection
+        }
+    });
+</script>
+        @endsection
