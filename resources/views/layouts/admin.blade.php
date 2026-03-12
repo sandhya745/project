@@ -30,6 +30,7 @@
 
             <!-- Desktop menu -->
             <div class="hidden md:flex gap-6 items-center">
+                <a href="{{ route('admin.dashboard') }}" class="text-purple-500 hover:bg-indigo-100">Home</a>
                 <a href="{{ route('books.index') }}" class="text-indigo-600 hover:text-indigo-800">Books</a>
                 <a href="{{ route('genres.index') }}" class="text-green-600 hover:text-green-800">Genres</a>
                 <a href="{{ route('authors.index') }}" class="text-red-600 hover:text-red-800">Authors</a>
@@ -71,6 +72,7 @@
                     class="absolute right-0 mt-2 w-48 bg-white border shadow-md rounded-md z-50"
                     style="display: none;">
                     <div class="flex flex-col px-4 py-3 space-y-2">
+                         <a href="{{ route('admin.dashboard') }}" class="text-purple-500 hover:bg-indigo-100">Home</a>
                         <a href="{{ route('books.index') }}" class="hover:text-indigo-600">📖 Books</a>
                         <a href="{{ route('genres.index') }}" class="hover:text-green-600">🎭 Genres</a>
                         <a href="{{ route('authors.index') }}" class="hover:text-red-600">🖊️ Authors</a>

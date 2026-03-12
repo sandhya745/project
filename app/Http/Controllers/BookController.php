@@ -27,7 +27,7 @@ class BookController extends Controller
 
 
 
-        return view('books.index', compact('books', 'currentGenre'));
+        return view('admin.books.index', compact('books', 'currentGenre'));
     }
 
     // Show form to create a new book
@@ -36,7 +36,7 @@ class BookController extends Controller
         $genres = Genre::all();
         $authors = Author::all();
 
-        return view('books.create', compact('genres', 'authors'));
+        return view('admin.books.create', compact('genres', 'authors'));
     }
 
     // Store a new book
@@ -57,7 +57,7 @@ class BookController extends Controller
         }
         Book::create($data);
 
-        return redirect()->route('book.list')->with('success', 'Book added successfully!');
+        return redirect()->route('books.index')->with('success', 'Book added successfully!');
     }
 
     // Show form to edit a book
@@ -68,7 +68,7 @@ class BookController extends Controller
         $genres = Genre::all();
         $authors = Author::all();
 
-        return view('books.edit', compact('book', 'genres', 'authors'));
+        return view('admin.books.edit', compact('book', 'genres', 'authors'));
     }
 
     // Update a book
@@ -119,7 +119,7 @@ class BookController extends Controller
 
         $book->update($data);
 
-        return redirect()->route('book.list')->with('success', 'Book updated successfully!');
+        return redirect()->route('books.index')->with('success', 'Book updated successfully!');
     }
 
     // Delete a book
@@ -128,7 +128,7 @@ class BookController extends Controller
     {
         $book->delete();
 
-        return redirect()->route('book.list')->with('success', 'Book deleted successfully!');
+        return redirect()->route('books.index')->with('success', 'Book deleted successfully!');
     }
 
     // Show single book
@@ -136,6 +136,6 @@ class BookController extends Controller
     {
         $book->load('author');
 
-        return view('books.show', compact('book'));
+        return view('admin.books.show', compact('book'));
     }
 }

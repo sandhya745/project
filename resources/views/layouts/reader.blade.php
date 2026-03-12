@@ -34,10 +34,10 @@
 
         <!-- Desktop Menu (visible on md+ screens) -->
         <div class="hidden md:flex space-x-6 items-center">
-            <a href="{{ route('reader.index') }}" class="hover:text-purple-600">🏠 Home</a>
-            <a href="{{ route('reader.index') }}" class="hover:text-purple-600">📖 Novels</a>
-            <a href="{{ route('reader.genres') }}" class="hover:text-purple-600">📂 Genres</a>
-            <a href="#" class="hover:text-purple-600">⚙ Settings</a>
+            <a href="{{ route('reader.index') }}" class="hover:text-purple-600">🏠 </a>
+            <a href="{{ route('reader.index') }}" class="hover:text-purple-600">📖 </a>
+            <a href="{{ route('reader.genres') }}" class="hover:text-purple-600">📂</a>
+            <a href="#" class="hover:text-purple-600">⚙ </a>
 
         </div>
 

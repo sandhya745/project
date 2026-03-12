@@ -9,10 +9,13 @@
         <aside class="w-64 bg-white shadow-md">
             <div class="p-6 text-xl font-bold">Duskhub Admin</div>
             <nav class="mt-6">
-                <a href="{{ route('admin.dashboard') }}" class="block py-2 px-6 hover:bg-indigo-100">Dashboard</a>
+                <a href="{{ route('admin.dashboard') }}" class="block py-2 px-6 hover:bg-indigo-100">Home</a>
                 <a href="{{ route('books.index') }}" class="block py-2 px-6 hover:bg-indigo-100">Books</a>
                 <a href="{{ route('authors.index') }}" class="block py-2 px-6 hover:bg-indigo-100">Authors</a>
                 <a href="{{ route('genres.index') }}" class="block py-2 px-6 hover:bg-indigo-100">Genres</a>
+                <br>
+                <a href="" >⚙ Settings</a>
+                <a href=""></a>
             </nav>
         </aside>
 
@@ -66,7 +69,7 @@
         </div>
     </div>
 </div>
-                    <img src="https://via.placeholder.com/32" class="rounded-full">
+
                 </div>
             </div>
 

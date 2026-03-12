@@ -10,12 +10,12 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::all();
-        return view('authors.index', compact('authors'));
+        return view('admin.authors.index', compact('authors'));
     }
 
     public function create()
     {
-        return view('authors.create');
+        return view('admin.authors.create');
     }
 
    public function store(Request $request)
@@ -46,7 +46,7 @@ class AuthorController extends Controller
 
     public function edit(Author $author)
     {
-        return view('authors.edit', compact('author'));
+        return view('admin.authors.edit', compact('author'));
     }
 
    public function update(Request $request, Author $author)
@@ -78,7 +78,7 @@ public function show(Author $author)
     // Load author with their books
     $author->load('books');
 
-    return view('authors.show', compact('author'));
+    return view('admin.authors.show', compact('author'));
 }
 
 }

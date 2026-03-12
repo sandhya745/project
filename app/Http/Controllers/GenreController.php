@@ -10,7 +10,7 @@ class GenreController extends Controller
      // Show form to create new genre
     public function create()
     {
-        return view('genres.create'); // we'll create this blade next
+        return view('admin.genres.create'); // we'll create this blade next
     }
 
     // Store the new genre
@@ -34,14 +34,14 @@ class GenreController extends Controller
     public function index()
     {
         $genres = Genre::all();
-        return view('genres.index', compact('genres'));
+        return view('admin.genres.index', compact('genres'));
     }
 
     // Edit form
     public function edit($id)
     {
         $genre = Genre::findOrFail($id);
-        return view('genres.edit', compact('genre'));
+        return view('admin.genres.edit', compact('genre'));
     }
 
     // Update
