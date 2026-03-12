@@ -11,16 +11,16 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // // Check if the user is logged in
-        // if (Auth::check()) {
-        //     // If admin, redirect to admin dashboard
-        //     if (Auth::user()->role === 'admin') {
-        //         return redirect()->route('admin.dashboard');
-        //     } else {
-        //         return redirect()->route('reader.index');
-        //     }
-        //     // Otherwise, continue to reader welcome page
-        // }
+        // Check if the user is logged in
+        if (Auth::check()) {
+            // If admin, redirect to admin dashboard
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return redirect()->route('reader.index');
+            }
+            // Otherwise, continue to reader welcome page
+        }
 
         // For guests or regular readers, load welcome page data
         $genres = Genre::withCount('books')->get(); // Count books per genre
