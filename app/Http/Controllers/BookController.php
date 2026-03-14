@@ -13,19 +13,31 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $genreId = $request->query('genre');
+        $search = $request->query('search');
 
         $booksQuery = Book::with(['author', 'genre']);
 
+        // Genre filter
         if ($genreId && Genre::where('id', $genreId)->exists()) {
-            $booksQuery->where('genre_id', $genreId);
+
             $currentGenre = Genre::find($genreId)->name;
         } else {
             $currentGenre = 'All Books';
         }
-
+        // SEARCH LOGIC (ADD THIS)
+        if ($search) {
+            $booksQuery->where(function ($query) use ($search) {
+                $query->where('book_name', 'LIKE', "%{$search}%")
+                    ->orWhere('synopsis', 'LIKE', "%{$search}%")
+                    ->orWhereHas('author', function ($q) use ($search) {
+                        $q->where('author_name', 'LIKE', "%{$search}%");
+                    })
+                    ->orWhereHas('genre', function ($q) use ($search) {
+                        $q->where('name', 'LIKE', "%{$search}%");
+                    });
+            });
+        }
         $books = $booksQuery->latest()->get();
-
-
 
         return view('admin.books.index', compact('books', 'currentGenre'));
     }

@@ -17,7 +17,7 @@ class HomeController extends Controller
             if (Auth::user()->role === 'admin') {
                 return redirect()->route('admin.dashboard');
             } else {
-                return redirect()->route('reader.index');
+                return redirect()->route('books.index');
             }
             // Otherwise, continue to reader welcome page
         }

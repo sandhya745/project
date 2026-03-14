@@ -10,6 +10,7 @@
             <div class="text-xl font-bold text-white mb-6">Duskhub Admin</div>
 
             <nav class="space-y-2">
+                <a href="{{ route('admin.dashboard') }}" class="flex justify-between w-full py-2 px-4 rounded-lg hover:bg-slate-700 transition items-center">Home</a>
 
                 <!-- Admin Menu -->
                 <div x-data="{ open: true }">

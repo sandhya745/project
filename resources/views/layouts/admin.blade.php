@@ -36,15 +36,45 @@
                 <a href="{{ route('authors.index') }}" class="text-red-600 hover:text-red-800">Authors</a>
 
                 <!-- Profile Dropdown -->
-                <div x-data="{ openProfile: false }" class="relative">
-                    <button @click="openProfile = !openProfile"
-                        class="text-purple-600 hover:text-purple-800 flex items-center gap-1">
-                         <img src="https://via.placeholder.com/32" class="rounded-full">
-                        <svg class="w-4 h-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </button>
+<div x-data="{ openProfile: false }" class="relative">
+    <button @click="openProfile = !openProfile"
+        class="flex items-center gap-2 px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full focus:outline-none">
+
+        <!-- User Icon (Heroicon) -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5.121 17.804A9 9 0 1118.879 6.196 9 9 0 015.121 17.804z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+
+        <span class="text-purple-600 font-medium">Profile</span>
+
+        <!-- Down Arrow -->
+        <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 9l-7 7-7-7" />
+        </svg>
+    </button>
+
+    <!-- Dropdown menu -->
+    <div x-show="openProfile" x-transition @click.away="openProfile = false"
+        class="absolute right-0 mt-2 w-48 bg-white border shadow-md rounded-md z-50"
+        style="display: none;">
+        <div class="flex flex-col py-2">
+            <a href="{{ route('profile.show') }}" class="px-4 py-2 hover:bg-gray-100">View Profile</a>
+            <a href="{{ route('profile.edit') }}" class="px-4 py-2 hover:bg-gray-100">Edit Profile</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit"
+                    class="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 
                     <!-- Dropdown menu -->
                     <div x-show="openProfile" x-transition @click.away="openProfile = false"
