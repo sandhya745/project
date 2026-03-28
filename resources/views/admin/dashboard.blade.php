@@ -3,14 +3,29 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-    <div class="flex min-h-screen bg-slate-100">
+
+    <div x-data="{ sidebarOpen: false }" class="flex min-h-screen bg-slate-100">
+
+        <!-- Mobile Toggle Button with Arrow -->
+        <button @click="sidebarOpen = !sidebarOpen"
+            class="md:hidden p-2 m-2 absolute z-50 bg-white rounded-lg shadow flex items-center justify-center">
+            <!-- Arrow Icon -->
+            <svg :class="{ 'rotate-180': sidebarOpen }" class="w-6 h-6 transform transition-transform duration-300"
+                fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M9 18l6-6-6-6"></path>
+            </svg>
+        </button>
 
         <!-- Sidebar -->
-        <aside class="w-64 bg-slate-800 text-slate-200 shadow-xl min-h-screen p-4">
+        <aside :class="{ '-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen }"
+            class="fixed md:relative z-40  bg-slate-800 text-slate-200 shadow-xl min-h-screen p-4 transition-transform duration-300">
+
             <div class="text-xl font-bold text-white mb-6">Duskhub Admin</div>
 
             <nav class="space-y-2">
-                <a href="{{ route('admin.dashboard') }}" class="flex justify-between w-full py-2 px-4 rounded-lg hover:bg-slate-700 transition items-center">Home</a>
+                <a href="{{ route('admin.dashboard') }}"
+                    class="flex justify-between w-full py-2 px-4 rounded-lg hover:bg-slate-700 transition items-center">Home</a>
 
                 <!-- Admin Menu -->
                 <div x-data="{ open: true }">
@@ -105,7 +120,8 @@
         </aside>
 
         <!-- Main Content -->
-        <div class="flex-1 p-6">
+        <div class="flex-1  transition-all duration-300">
+
             <!-- Top Bar -->
             <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-xl shadow">
                 <!-- Left: Dashboard Title -->
@@ -122,7 +138,8 @@
                             Search
                         </button>
                     </form>
-                    <!--Notification-->
+
+                    <!-- Notifications -->
                     <div x-data="{
                         openNotifications: false,
                         notifications: [
@@ -162,17 +179,18 @@
                 </div>
             </div>
 
+
             <!-- Dashboard Counts -->
             <div class="grid grid-cols-3 gap-4 mt-4">
-                <div class="bg-white p-5 shadow-md rounded-xl text-center">
+                <div class="bg-grey p-5 shadow-md rounded-xl text-center">
                     <h3 class="font-bold">Published Books</h3>
                     <p class="text-2xl">{{ $totalBooks }}</p>
                 </div>
-                <div class="bg-white p-4 shadow rounded text-center">
+                <div class="bg-grey p-4 shadow rounded text-center">
                     <h3 class="font-bold">Authors</h3>
                     <p class="text-2xl">{{ $totalAuthors }}</p>
                 </div>
-                <div class="bg-white p-4 shadow rounded text-center">
+                <div class="bg-grey p-4 shadow rounded text-center">
                     <h3 class="font-bold">Genres</h3>
                     <p class="text-2xl">{{ $totalGenres }}</p>
                 </div>

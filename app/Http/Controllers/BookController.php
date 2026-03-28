@@ -20,6 +20,7 @@ class BookController extends Controller
         // Genre filter
         if ($genreId && Genre::where('id', $genreId)->exists()) {
 
+            $booksQuery->where('genre_id', $genreId);
             $currentGenre = Genre::find($genreId)->name;
         } else {
             $currentGenre = 'All Books';

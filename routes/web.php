@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\HomeController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\ReaderController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +56,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
      * Book, Genre, Author Management
      */
     Route::resource('books', BookController::class);
+    Route::resource('chapters', ChapterController::class);
     Route::resource('genres', GenreController::class);
     Route::resource('authors', AuthorController::class);
 
