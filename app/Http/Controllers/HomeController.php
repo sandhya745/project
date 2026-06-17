@@ -9,23 +9,24 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function index()
-    {
-        // Check if the user is logged in
-        if (Auth::check()) {
-            // If admin, redirect to admin dashboard
-            if (Auth::user()->role === 'admin') {
-                return redirect()->route('admin.dashboard');
-            } else {
-                return redirect()->route('books.index');
-            }
-            // Otherwise, continue to reader welcome page
+   public function index()
+{
+    // If logged in
+    if (Auth::check()) {
+
+        // Admin → admin dashboard
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route('admin.dashboard');
         }
 
-        // For guests or regular readers, load welcome page data
-        $genres = Genre::withCount('books')->get(); // Count books per genre
-        $totalBooks = Book::count(); // Total books in system
-
-        return view('welcome', compact('genres', 'totalBooks'));
+        // Reader → go to reader dashboard (NOT books.index)
+        return redirect()->route('reader.dashboard');
     }
+
+    // Guest → show welcome page
+    $genres = Genre::withCount('books')->get();
+    $totalBooks = Book::count();
+
+    return view('welcome', compact('genres', 'totalBooks'));
+}
 }

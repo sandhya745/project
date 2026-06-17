@@ -11,12 +11,16 @@
 
 
         <!-- Add New Book Button at bottom right -->
-        <div class="flex justify-end mb-6">
-            <a href="{{ route('books.create') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded shadow">
-                + Add New Book
-            </a>
-        </div>
-        <br>
+@if($books->count() || !request('search'))
+    <div class="flex justify-end mb-6">
+        <a href="{{ route('books.create') }}"
+           class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded shadow">
+            + Add New Book
+        </a>
+    </div>
+@endif
+
+<br>
         <!-- Book List -->
         <div class="space-y-4">
             @forelse ($books as $book)

@@ -9,15 +9,39 @@ use App\Models\Genre;
 class ReaderController extends Controller
 {
     // Homepage - list all books
-   public function index()
-{
-    $books = Book::with('author', 'genre')->get();
-    $genres = Genre::withCount('books')->get(); // Count of books per genre
-    $totalBooks = $books->count(); // total books
+    public function index()
+    {
+        $books = Book::with('author', 'genre')->get();
+        $genres = Genre::withCount('books')->get(); // Count of books per genre
+        $totalBooks = $books->count(); // total books
 
-    return view('reader.welcome', compact('books', 'genres', 'totalBooks'));
-}
+        return view('reader.welcome', compact('books', 'genres', 'totalBooks'));
+    }
 
+    public function dashboard()
+    {
+        $user = auth()->user();
+
+        $search = request()->query('search'); // get search query from the URL
+
+        $query = Book::with('author');
+
+        // Apply search filter if search is not empty
+        if (! empty($search)) {
+            $query->where('book_name', 'like', "%{$search}%")
+                ->orWhereHas('author', function ($q) use ($search) {
+                    $q->where('author_name', 'like', "%{$search}%");
+                });
+        }
+        // Recommended books (filtered if search)
+        $recommended = $query->latest()->take(20)->get(); // take 20 as example
+        $continueReading = Book::with('author')->latest()->take(4)->get();
+        // $favorites = $user->favorites()->with('author')->take(6)->get();
+
+        $genres = Genre::withCount('books')->get();
+
+        return view('reader.dashboard', compact('continueReading', 'recommended', 'genres','search'));
+    }
 
     // Single book page - show chapters
     public function show(Book $book)
@@ -45,10 +69,12 @@ class ReaderController extends Controller
 
         return view('reader.read', compact('book', 'chapter', 'nextChapter', 'prevChapter'));
     }
-     // List all genres
+
+    // List all genres
     public function genres()
     {
         $genres = Genre::withCount('books')->get(); // count books in each genre
+
         return view('reader.genres', compact('genres'));
     }
 
@@ -56,6 +82,7 @@ class ReaderController extends Controller
     public function genreBooks(Genre $genre)
     {
         $books = Book::where('genre_id', $genre->id)->get();
+
         return view('reader.genre_books', compact('genre', 'books'));
     }
 }

@@ -4,7 +4,8 @@
 
 @section('content')
 
-    <div x-data="{ sidebarOpen: false }" class="flex min-h-screen bg-slate-100">
+    <div x-data="sidebar()" x-init="handleResize()" x-on:resize.window="handleResize()"
+        class="flex min-h-screen bg-slate-100">
 
         <!-- Mobile Toggle Button with Arrow -->
         <button @click="sidebarOpen = !sidebarOpen"
@@ -18,8 +19,8 @@
         </button>
 
         <!-- Sidebar -->
-        <aside :class="{ '-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen }"
-            class="fixed md:relative z-40  bg-slate-800 text-slate-200 shadow-xl min-h-screen p-4 transition-transform duration-300">
+        <aside :class="{ '-translate-x-full': !sidebarOpen && isMobile, 'translate-x-0': sidebarOpen || !isMobile }"
+            class="fixed md:relative z-40 bg-slate-800 text-slate-200 shadow-xl min-h-screen p-4 transition-transform duration-300">
 
             <div class="text-xl font-bold text-white mb-6">Duskhub Admin</div>
 
@@ -39,6 +40,8 @@
                     <div x-show="open" class="pl-4 mt-1 space-y-1">
                         <a href="{{ route('books.index') }}"
                             class="block py-2 px-4 rounded-lg hover:bg-slate-700 transition">Books</a>
+                        <a href="{{ route('chapters.index') }}"
+                            class="block py-2 px-4 rounded-lg hover:bg-slate-700 transition">Chapters</a>
                         <a href="{{ route('authors.index') }}"
                             class="block py-2 px-4 rounded-lg hover:bg-slate-700 transition">Authors</a>
                         <a href="{{ route('genres.index') }}"
@@ -214,6 +217,19 @@
                 </ul>
             </div>
 
+            <div class="bg-white p-4 shadow rounded mt-6">
+                <h2 class="text-lg font-semibold mb-2">Latest Chapters</h2>
+                <ul class="text-gray-600 text-sm space-y-2">
+                    @forelse($latestChapters as $chapter)
+                        <li>
+                            • "{{ $chapter->chapter_title }}" added to "{{ $chapter->book->book_name }}"
+                        </li>
+                    @empty
+                        <li>No recent chapters found</li>
+                    @endforelse
+                </ul>
+            </div>
+
             <!-- Recent Tasks -->
             <div class="bg-white p-4 shadow rounded">
                 <h2 class="text-lg font-semibold mb-2">Recent Tasks</h2>
@@ -225,7 +241,6 @@
                     @endforelse
                 </ul>
             </div>
-
 
 
             <!-- Optional: Chart.js for charts -->
@@ -276,5 +291,17 @@
                         }
                     }
                 });
+            </script>
+            <script>
+                function sidebar() {
+                    return {
+                        sidebarOpen: false,
+                        isMobile: window.innerWidth < 768,
+                        handleResize() {
+                            this.isMobile = window.innerWidth < 768;
+                            if (!this.isMobile) this.sidebarOpen = true; // auto-show sidebar on desktop
+                        }
+                    }
+                }
             </script>
         @endsection

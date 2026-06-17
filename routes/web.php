@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\HelpController;
@@ -14,7 +15,6 @@ use App\Http\Controllers\ReaderController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -81,8 +81,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/settings/site', [SettingsController::class, 'site'])->name('settings.site');
     Route::get('/settings/backup', [SettingsController::class, 'backup'])->name('settings.backup');
     // routes/web.php
-Route::post('/settings/backup/create', [SettingsController::class, 'createBackup'])->name('settings.backup.create');
-Route::post('/settings/backup/restore', [SettingsController::class, 'restoreBackup'])->name('settings.backup.restore');
+    Route::post('/settings/backup/create', [SettingsController::class, 'createBackup'])->name('settings.backup.create');
+    Route::post('/settings/backup/restore', [SettingsController::class, 'restoreBackup'])->name('settings.backup.restore');
 
     Route::get('/settings/newsletter', [SettingsController::class, 'newsletter'])->name('settings.newsletter');
     Route::get('/settings/profile', [SettingsController::class, 'profile'])->name('settings.profile'); // renamed to avoid collision
@@ -98,15 +98,16 @@ Route::post('/settings/backup/restore', [SettingsController::class, 'restoreBack
 | Reader Routes (Authenticated)
 
 */
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('reader.dashboard');
-    })->name('reader.dashboard');
-});
-    Route::get('/books', [ReaderController::class, 'index'])->name('reader.index');
-    Route::get('/books/{book}', [ReaderController::class, 'show'])->name('reader.show');
-    Route::get('/books/{book}/chapter/{chapter}', [ReaderController::class, 'read'])->name('reader.read');
 
-    Route::get('/genres', [ReaderController::class, 'genres'])->name('reader.genres');
-    Route::get('/genres/{genre}', [ReaderController::class, 'genreBooks'])->name('reader.genre.books');
+    Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [ReaderController::class, 'dashboard'])
+        ->name('reader.dashboard');
+});
+
+Route::get('/books', [ReaderController::class, 'index'])->name('reader.index');
+Route::get('/books/{book}', [ReaderController::class, 'show'])->name('reader.show');
+Route::get('/books/{book}/chapter/{chapter}', [ReaderController::class, 'read'])->name('reader.read');
+
+Route::get('/genres', [ReaderController::class, 'genres'])->name('reader.genres');
+Route::get('/genres/{genre}', [ReaderController::class, 'genreBooks'])->name('reader.genre.books');
 

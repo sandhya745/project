@@ -31,7 +31,7 @@
                 {{-- View Chapters --}}
                 <a href="{{ route('reader.show', $book) }}"
                    class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition block text-center">
-                   View Chapters
+                   View Details
                 </a>
             </div>
         @empty

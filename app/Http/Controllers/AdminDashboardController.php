@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Chapter;
 use App\Models\Genre;
 use App\Models\User;
 
@@ -19,6 +20,11 @@ class AdminDashboardController extends Controller
         // Latest 5 books as activities
         $latestActivities = Book::orderBy('created_at', 'desc')->take(5)->get();
 
+        // Latest 5 chapters as activities
+        $latestChapters = Chapter::with('book') // eager load book
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
         // Recent tasks (dummy data for now)
         $recentTasks = [
             'Add a new book',
@@ -44,7 +50,8 @@ class AdminDashboardController extends Controller
             'totalAuthors',
             'totalReaders',
             'latestActivities',
-            'recentTasks'
+            'recentTasks',
+            'latestChapters'
         ));
 
     }
