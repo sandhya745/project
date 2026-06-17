@@ -18,30 +18,40 @@ class ReaderController extends Controller
         return view('reader.welcome', compact('books', 'genres', 'totalBooks'));
     }
 
-    public function dashboard()
-    {
-        $user = auth()->user();
+   public function dashboard()
+{
+    $user = auth()->user();
 
-        $search = request()->query('search'); // get search query from the URL
+    $search = request()->query('search');
 
-        $query = Book::with('author');
+    $searchResults = collect(); // ✅ ALWAYS define it
 
-        // Apply search filter if search is not empty
-        if (! empty($search)) {
-            $query->where('book_name', 'like', "%{$search}%")
-                ->orWhereHas('author', function ($q) use ($search) {
-                    $q->where('author_name', 'like', "%{$search}%");
-                });
-        }
-        // Recommended books (filtered if search)
-        $recommended = $query->latest()->take(20)->get(); // take 20 as example
-        $continueReading = Book::with('author')->latest()->take(4)->get();
-        // $favorites = $user->favorites()->with('author')->take(6)->get();
+    $query = Book::with('author');
 
-        $genres = Genre::withCount('books')->get();
-
-        return view('reader.dashboard', compact('continueReading', 'recommended', 'genres','search'));
+    if (!empty($search)) {
+        $searchResults = Book::with('author')
+            ->where(function ($q) use ($search) {
+                $q->where('book_name', 'like', "%{$search}%")
+                  ->orWhereHas('author', function ($q2) use ($search) {
+                      $q2->where('author_name', 'like', "%{$search}%");
+                  });
+            })
+            ->latest()
+            ->get();
     }
+
+    $recommended = Book::with('author')->latest()->take(20)->get();
+    $continueReading = Book::with('author')->latest()->take(4)->get();
+    $genres = Genre::withCount('books')->get();
+
+    return view('reader.dashboard', compact(
+        'search',
+        'searchResults',   // ✅ FIX HERE
+        'recommended',
+        'continueReading',
+        'genres'
+    ));
+}
 
     // Single book page - show chapters
     public function show(Book $book)

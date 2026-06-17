@@ -99,7 +99,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 */
 
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth'])->prefix('reader')->group(function () {
     Route::get('/dashboard', [ReaderController::class, 'dashboard'])
         ->name('reader.dashboard');
 });

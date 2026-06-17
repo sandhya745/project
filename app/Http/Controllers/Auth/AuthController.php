@@ -31,8 +31,8 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'role' => 'reader'
         ]);
-
-        return redirect()->route('login')->with('success', 'Registration successful');
+         Auth::login($user); // 🔥 auto login
+         return redirect()->route('reader.dashboard'); // 🔥 go to dashboardcessful');
     }
 
     // Show login page

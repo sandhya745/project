@@ -34,7 +34,7 @@
 
         <!-- Desktop Menu (visible on md+ screens) -->
         <div class="hidden md:flex space-x-6 items-center">
-            <a href="{{ route('reader.dashboard') }}" class="hover:text-purple-600">☰ Dashboard</a>
+            {{-- <a href="{{ route('reader.dashboard') }}" class="hover:text-purple-600">☰ Dashboard</a> --}}
             <a href="{{ route('reader.index') }}" class="hover:text-purple-600">🏠 </a>
             <a href="{{ route('reader.index') }}" class="hover:text-purple-600">📖 </a>
             <a href="{{ route('reader.genres') }}" class="hover:text-purple-600">📂</a>
@@ -57,7 +57,7 @@
                  style="display: none;">
 
                 <div class="flex flex-col px-4 py-3 space-y-2">
-                    <a href="{{ route('reader.dashboard') }}" class="hover:text-purple-600">☰ Dashboard</a>
+                    {{-- <a href="{{ route('reader.dashboard') }}" class="hover:text-purple-600">☰ Dashboard</a> --}}
                     <a href="{{ route('reader.index') }}" class="hover:text-purple-600">🏠 Home</a>
                     <a href="{{ route('reader.index') }}" class="hover:text-purple-600">📖 Novels</a>
                     <a href="{{ route('reader.genres') }}" class="hover:text-purple-600">📂 Genres</a>

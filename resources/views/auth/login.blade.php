@@ -66,7 +66,7 @@
                         {{ $errors->first() }}
                     </div>
                 @endif
-                <form method="POST" action="{{ route('login') }}" autocomplete="off">
+                <form method="POST" action="{{ route('authenticate') }}" autocomplete="off">
                     @csrf
 
                     <!-- Email -->
@@ -78,7 +78,7 @@
                     </div>
 
                     <!-- Password -->
-                    <div class="mb-4">
+                    <div class="mb-4 relative">
                         <label class="block text-gray-700 mb-2">Password</label>
                         <input type="password" name="password" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
@@ -125,4 +125,7 @@
         </div>
 
     </div>
+
 @endsection
+
+
